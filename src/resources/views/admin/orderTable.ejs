@@ -1,0 +1,70 @@
+<div class="admin__product__table">
+    <h2>Các sản phẩm người dùng đã đặt</h2>
+    <br />
+    <table class="table table-striped admin__table_group">
+        <thead>
+            <tr>
+                <th>Stt</th>
+                <th>Id SP</th>
+                <th>Tên SP</th>
+                <th>Hình dáng</th>
+                <th>Màu</th>
+                <th>SL</th>
+                <th>Thành tiền</th>
+                <th>Tên người đặt</th>
+                <th>Địa chỉ</th>
+                <th>SĐT</th>
+                <th>CreateAT</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if(response.length> 0) { response.forEach((value, index)=>{ %>
+                <tr>
+                    <td>
+                        <%= index+1 %>
+                    </td>
+                    <td><a href="/products/<%= value.productId %>/detail">
+                            <%= value.productId %>
+                        </a> </td>
+                    <td>
+                        <%= value.productName %>
+                    </td>
+                    <td>
+                        <%= value.shape %>
+                    </td>
+                    <td>
+                        <%= value.color %>
+                    </td>
+                    <td>
+                        <%= value.soLuong %>
+                    </td>
+                    <td>
+                        <%= value.thanhTien%>
+                    </td>
+                    <td>
+                        <%= value.userName %>
+                    </td>
+                    <td>
+                        <%= value.diaChi %>
+                    </td>
+                    <td>
+                        <%= value.sdt %>
+                    </td>
+                    <td>
+                        <%= value.createdAt %>
+                    </td>
+                    <td>
+                        <form action="/admin/orders/<%= _id %> /delete?_method=PATCH" method="POST">
+                            <a href="#" id="jsDeleteProductBtn">delete</a>
+                        </form>
+                    </td>
+                </tr>
+                <% })} else{ %>
+                    <tr>
+                        <td colspan="10" style="text-align: center;">Không có sản phẩm đặt</td>
+                    </tr>
+                    <% } %>
+        </tbody>
+    </table>
+</div>

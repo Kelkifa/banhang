@@ -1,0 +1,453 @@
+$color_bg:#3c4b64;
+$color_bg_hover:#321fdb;
+$leftbar_width:256px;
+
+
+$fluid:30px;
+*{
+    box-sizing: border-box;
+}
+.CustomScroll::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: transparent;
+} 
+.CustomScroll::-webkit-scrollbar-thumb {
+    background-color: rgba(161, 156, 156, 0.459);
+    border-radius:12px;
+}
+.CustomScroll::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+.AdminContainer{
+    display: flex;
+    position: relative;
+}
+.AdminContainer__body{
+    height: 100vh;
+    overflow: auto;
+    position: relative;
+    width: calc(100% - #{$leftbar_width});
+    // width: 100%;
+    background-color: #ebedef;
+    transition-duration: 0.3s;
+    transform-origin: 100 0;
+}
+.AdminContainer__body__MaxWidth{
+    width: 100%;
+}
+.AdminContainer__body::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+    background-color: transparent;
+    border-radius: 3px; 
+}
+  
+.AdminContainer__body::-webkit-scrollbar-thumb {
+    background-color: rgba(34, 46, 28, 0.5);
+    border-radius: 20px; 
+}
+  
+.AdminContainer__body::-webkit-scrollbar-track {
+    background-color: transparent; 
+}
+
+.AdminContainer__body__content{
+    width: 100%;
+    padding:$fluid;
+}
+.color--gray{
+    color: #FFFFFFCC;
+}
+.background--clicked{
+    background-color: #ffffff0d;
+}
+/** Admin leftbar **/
+.AdminLeftbar{
+    background-color: $color_bg;
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    height:100vh;
+    position: relative;
+    width: $leftbar_width;
+    transition-duration: 0.3s;
+    transform-origin: 0 0;
+    z-index: 9;
+
+    .AdminLeftbar__content{
+        overflow: auto;
+        width: 100%;
+        height: 100%;
+        
+    }
+    .AdminLeftbar__btn{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 20px;
+        height: 40px;
+        border-radius: 0 4px 4px 0;
+        color: white;
+        position: absolute;
+        right:-20px;
+        top:50%;
+        background-color: rgba(77, 76, 75, 0.336);
+        cursor: pointer;
+        z-index: 10;
+        &:hover{
+            background-color: rgba(63, 62, 61, 0.534);
+        }
+    }
+}
+.AdminLeftbar::-webkit-scrollbar {
+    width: 6px;
+    background-color: transparent;
+} 
+.AdminLeftbar::-webkit-scrollbar-thumb {
+    background-color: rgba(161, 156, 156, 0.3);
+    border-radius:12px;
+}
+.AdminLeftbar::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+.AdminLeftbar__header{
+    margin: 0;
+    padding: 0;
+    background-color: rgba(0,0,21,.2);
+    height: 56px;
+    cursor: pointer;
+    .AdminLeftbar__header__link{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .AdminLeftbar__header__icon{
+        position: absolute;
+        left:-27px;
+    }
+    .AdminLeftbar__header__text{
+        position: relative;
+    }
+    .AdminLeftbar__header__text, .AdminLeftbar__header__icon{
+        padding: 0 3px;
+        font-size: 18.72px;
+        color: white;
+    }
+}
+.AdminLeftbar__list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    a{
+        width: 100%;
+        height: 100%;
+    }
+    //default item
+    .AdminLeftbar__list__item{
+        display: flex;
+        padding: 13.5px 2px 13.5px 16px;
+        cursor: pointer;
+    }
+    .AdminLeftbar__list__item__text{
+        padding: 0 7px;
+    }
+    // dropdown
+    .AdminLeftbar__list__item__dropdown{
+        cursor: pointer;
+        .admin__item__dropdown__show{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 13.5px 10px 13.5px 16px;
+            .dropdown__show__content{
+                display: flex;
+            }
+            .DropdownIcon{
+                transition-duration: 0.5s;
+                color:#FFFFFF99;
+            }
+            .DropdownIcon--rotate{
+                transform: rotate(-90deg);
+            }
+        }
+        .admin__item__dropdown__hide{
+            display: none;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            .admin__dropdown__hide__item__text{
+                padding: 13.5px 10px 13.5px 43px;
+                color: white;
+            }
+            
+        }
+        
+    }
+    .AdminLeftbar__list__item__title{
+        padding: 12px 16px;
+        margin-top: 16px;
+        font-weight: bold;
+        font-size: 11.2px;
+        color: #FFFFFF99;
+        height: 40px;
+        align-items: center;
+    }
+    .LeftbarIcon{
+        width: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #FFFFFF99;
+    }
+
+    .AdminLeftbar__list__item:hover{
+        background-color: $color_bg_hover;
+    }
+
+    .admin__item__dropdown__show:hover{
+        background-color: $color_bg_hover;
+    }
+    .admin__dropdown__hide__item:hover{
+        background-color: $color_bg_hover;
+    }
+}
+.AdminLeftbar--hide{
+    width:0;
+}
+.AdminContainer__body--fullwidth{
+    width: 100%;
+}
+/** Admin Navbar **/
+.AdminContainer__body__navbar{
+    background-color: white;
+    // height: 105px;
+    color: #00001580;
+    overflow: auto;
+    transition-duration: 0.3s;
+    padding: 0 $fluid;
+    .AdminNavbar__top{
+        // height: 50%;
+        padding: 10px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        ul{
+            display: flex;
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            height: 100%;
+        }
+        .AdminNavbar__top__left{
+            display: flex;
+            align-items: center;
+            .AdminNavbar__list__item{
+                display: flex;
+                align-items: center;
+                height: 100%;
+                padding: 0 8px;
+                cursor: pointer;
+                .color--red{
+                    color: rgb(255, 0, 0);
+                }
+            }
+            .AdminNavbar__list__item:hover{
+                color: black;
+            }
+            .AdminNavbar__list__item:first-child{
+                padding-left: 0;
+            }
+        }
+        .AdminNavbar__top__right{
+            display: flex;
+            align-items: center;
+            .AdminNavbar__list__item {
+                display: flex;
+                align-items:center;
+                padding: 0 7px;
+                cursor: pointer;
+                i{
+                    color:#35353880;
+                    font-size: 20px;
+                }
+            }
+            .AdminNavbar__list__item:last-child{
+                padding-right: 0;
+            }
+            .AdminNavbar__list__item:hover i{
+                color: #000;
+            }
+            .user__buttom{
+                width: 20px;
+                height: 20px;
+                border-radius:50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: red;
+                font-size:12px;
+                color: white;
+                font-weight: bold;
+            }
+        }
+    }
+    .AdminNavbar__bottom{
+        display: flex;
+        align-items: center;
+        border-top: 1px solid #a19a9a99;
+        padding: 10px 0;
+        // height: 50%;
+        .AdminNavbar__bottom__division{
+            margin: 0 7px;
+            font-size:18px;
+        }
+        span:first-child{
+            color: #321fd8;
+        }
+    }
+}
+
+/** Admin content **/
+
+//Admin product create
+$input_group_mt:7px;
+
+.admin__product__create{
+    box-sizing: border-box;
+    padding: 15px;
+    background-color: white;
+    border-radius: 4px;
+    .form-label{
+        color: #3c4b64;
+        font-weight: normal;
+    }
+}
+.admin__product__create__InputGroup{
+    margin-top: $input_group_mt;
+}
+.admin__product__create__InputGroup__Images{
+    display: flex;
+    background-color: rgba(128, 128, 128, 0.075);
+    // margin-top: 25px;
+    padding: 0;
+    height: 74px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    list-style: none;
+    overflow: auto;
+    li{
+        text-align: center;
+        vertical-align: middle;
+        flex-shrink: 0;
+        height: 100%;
+        width: 62px;
+        img{
+            max-width: 100%;
+            max-height: 100%;
+        }
+    }
+    li ~ li{
+        margin-left: 5px;
+    }
+}
+#jsAdminProductCreateNotifi{
+    color: green;
+}
+
+//Admin product table
+.admin__product__table{
+    background-color: white;
+    padding: 15px;
+    border-radius: 5px;
+    overflow: auto;
+    .table__ImageGroup{
+        ul{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            width: 62px;
+            height: 74px;
+            overflow: auto;
+            display: flex;
+            li{
+                flex-shrink: 0;
+                text-align:center;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(163, 163, 159, 0.164);
+                img{
+                    max-height: 100%;
+                    min-height: 100%;
+                }
+            }
+        }
+        .table__ImageGroup__item ~ .table__ImageGroup__item{
+            margin-left: 5px;
+        }
+    }
+}
+
+.admin__product__table::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+    background-color: transparent;
+    border-radius: 3px; }
+  
+.admin__product__table::-webkit-scrollbar-thumb {
+    background-color: rgba(37, 70, 21, 0.5);
+    border-radius: 20px; }
+  
+.admin__product__table::-webkit-scrollbar-track {
+    background-color: transparent; 
+}
+
+.admin__table_group{
+    width: 100%;
+    .table__image__container{
+        width: 50px;
+        height: 50px;
+        img{
+            max-width: 100%;
+            min-width: 100%;
+        }
+    }
+}
+
+@media screen and (max-width:771px){
+    .AdminLeftbar{
+        position: absolute;
+    }
+    .AdminContainer__body{
+        width: 100%;
+    }
+    .AdminNavbar__top{
+        flex-wrap: wrap;
+        .AdminNavbar__top__left, .AdminNavbar__top__right{
+            width: 100%;
+            justify-content:space-between;
+        }
+        .AdminNavbar__top__left ~ .AdminNavbar__top__right{
+            margin-top: 10px;
+        }
+        .AdminNavbar__top__right li{
+            display: flex;
+            justify-content: center;
+        }
+        .AdminNavbar__top__right li:nth-child(1){
+            width: 32px;
+        }
+        .AdminNavbar__top__right li:nth-child(2){
+            width: 84.49px;
+        }
+        .AdminNavbar__top__right li:nth-child(3){
+            width: 52.56px;
+        }
+        .AdminNavbar__top__right li:nth-child(4){
+            width: 66.59px;
+        }
+    }
+}
+

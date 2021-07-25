@@ -1,0 +1,25 @@
+.test{
+    color: #000;
+}
+*{
+    box-sizing: border-box;
+}
+
+body::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+    background-color: transparent;
+    border-radius: 3px;
+} 
+body::-webkit-scrollbar-thumb {
+    background-color: rgba(37, 70, 21, 0.5);
+    border-radius:20px;
+}
+body::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+
+
+@import "./home.scss";
+@import "./admin.scss";

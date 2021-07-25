@@ -1,0 +1,94 @@
+<div class="body__container">
+    <div class="body__fluid HomeDetail">
+        <div class="detail__group detail__group--1">
+            <div class="detail__group__left">
+                <div class="detail__group__left__ImgContainer">
+                    <img src="<%= response.img?response.img[0]:"" %> " id="jsDetailShowImg" alt="can't load">
+                </div>
+                <ul class="detail__group__left__MultiImgContainer">
+                    <% response.img.forEach(function(imgItem){ %>
+                        <li><img src="<%= imgItem %>" alt=""></li>
+                        <% }) %>
+                            <% response.shapeLinks.forEach(function(value){ %>
+                                <li><img src="<%= value %>" alt=""></li>
+                                <% }) %>
+                                    <% response.colorLinks.forEach(function(value){ %>
+                                        <li><img src="<%= value %>" alt=""></li>
+                                        <% }) %>
+
+                </ul>
+                <div>tim <span>Đã thích (101)</span></div>
+            </div>
+            <div class="detail__group__right">
+                <div class="detail__group__right__name">
+                    <%= response.name %>
+                </div>
+                <div class="detail__group__right__SellInfo">
+                    <span class="comment">Chưa có đánh giá</span>
+                    <span class="sold__number">0</span>
+                    <span>Đã bán</span>
+                </div>
+                <div class="detail__group__right__description">
+                    <%= response.description %>
+                </div>
+                <div class="detail__group__right__cost">
+                    <span>
+                        <%= response.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ); %>đ
+                    </span>
+                </div>
+                <ul class="detail__group__right__order">
+                    <li class="detail__group__right__order__item">
+                        <div class="detail__group__right__order__item__title">Hình dáng</div>
+                        <ul class="detail__group__right__order__item__content">
+                            <% response.shapes.forEach((value, index)=>{ %>
+                                <li class="detail__group__right__order__item__content__item jsShowImageOrder"
+                                    jsName="shape" jsValue="<%= value %>"
+                                    src="<%= response.shapeLinks?response.shapeLinks[index]:'' %>">
+                                    <%= value %> <i class="fa fa-check-circle-o text-success CheckedIcon"></i>
+                                </li>
+                                <% }) %>
+
+                        </ul>
+                    </li>
+                    <li class="detail__group__right__order__item">
+                        <div class="detail__group__right__order__item__title">Màu sắc</div>
+                        <ul class="detail__group__right__order__item__content">
+                            <% response.colors.forEach( (value, index)=>{ %>
+                                <li class="detail__group__right__order__item__content__item jsShowImageOrder"
+                                    jsName="color" jsValue="<%= value %>"
+                                    src="<%= response.colorLinks?response.colorLinks[index]:'' %>">
+                                    <%= value %> <i class="fa fa-check-circle-o text-success CheckedIcon"></i>
+                                </li>
+                                <% }) %>
+                        </ul>
+                    </li>
+                    <li class="detail__group__right__order__item">
+                        <div class="detail__group__right__order__item__title">Số lượng</div>
+                        <div class="detail__group__right__order__item__content">
+                            <div class="item__number__group">
+                                <input type="number" min="1" max step="1" value="1" id="jsSoLuongInput">
+                            </div>
+                            <div class="text_availabel">
+                                <span class="number__available">90</span>
+                                <span>sản phẩm có sẵn</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="detail__group__right__btn">
+                    <button class="detail__group__right__btn__left" productId="<%= response._id %>" id="jsAddToCart">
+                        <i></i>
+                        <span>Thêm Vào Giỏ</span>
+                    </button>
+                    <button class="detail__group__right__btn__right" id="jsBuy">Mua
+                        Ngay</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="detail__group detail__group--2">
+
+        </div>
+
+    </div>
+</div>

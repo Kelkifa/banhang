@@ -1,0 +1,55 @@
+<div class="login__container">
+    <div class="login__container__logo">
+        <i class="icon-logoDesignBlack" style="font-size:250px;"></i>
+    </div>
+    <div class="login__container__form">
+        <form action="#" method="POST">
+            <div class="login__form__username form__item">
+                <label for="username">Username</label>
+                <input type="text" name="username">
+            </div>
+            <div class="login__form__password form__item">
+                <label for="password">Password</label>
+                <input type="password" name="password">
+            </div>
+            <div class="login__form__with form__item">
+                <div class="g-signin2" data-onsuccess="onSignIn"></div>
+                <a href="#" onclick="signOut();">Sign out</a>
+            </div>
+            <div class="form__item">
+                <button name="submit">Sign in</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+<!-- <div class="g-signin2" data-onsuccess="onSignIn"></div>
+<a href="#" onclick="signOut();">Sign out</a> -->
+
+<script>
+    async function onSignIn(googleUser) {
+        try {
+            const id_token = googleUser.getAuthResponse().id_token;
+            const response = await fetch('/login', {
+                method: 'POST',
+                body: JSON.stringify({ token: id_token }),
+                headers: { 'Content-Type': 'application/json' }
+            })
+            const trueReponse = await response.json();
+            console.log(trueReponse);
+            //go back
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+    }
+</script>

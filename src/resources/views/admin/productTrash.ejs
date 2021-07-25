@@ -1,0 +1,95 @@
+<div class="admin__product__table">
+    <h2>Trash</h2>
+    <p>List of products that have been deleted</p>
+    <table class="table table-striped admin__table_group">
+        <thead>
+            <tr>
+                <th>Stt</th>
+                <th>Name</th>
+                <th>Cost</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Shape Image</th>
+                <th>Color Image</th>
+                <th>Shape</th>
+                <th>Color</th>
+                <th>City</th>
+                <th>Create At</th>
+                <th>Update At</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- co du lieu thi xuat bang -->
+            <% if(response.length>0){ response.forEach(function(data, index){ %>
+                <tr>
+                    <td>
+                        <%= index+1 %>
+                    </td>
+                    <td>
+                        <%= data.name %>
+                    </td>
+                    <td>
+                        <%= data.cost %>
+                    </td>
+                    <td>
+                        <%= data.description %>
+                    </td>
+                    <td class="table__ImageGroup">
+                        <ul class="table__ImageGroup__item CustomScroll">
+                            <% data.img.forEach(value=>{ %>
+                                <li><img src="<%= value %>" alt="faild"></li>
+                                <% }) %>
+                        </ul>
+                    </td>
+                    <td class="table__ImageGroup">
+                        <ul class="table__ImageGroup__item CustomScroll">
+                            <% data.shapeLinks.forEach(value=>{ %>
+                                <li><img src="<%= value %>" alt="faild"></li>
+                                <% }) %>
+                        </ul>
+                    </td>
+                    <td class="table__ImageGroup">
+                        <ul class="table__ImageGroup__item CustomScroll">
+                            <% data.colorLinks.forEach(value=>{ %>
+                                <li><img src="<%= value %>" alt="faild"></li>
+                                <% }) %>
+                        </ul>
+                    </td>
+                    <td>
+                        <%= data.shapes.reduce((total, value, index)=> index!=0?total+', '+value:value, "" ) %>
+                    </td>
+                    <td>
+                        <%= data.colors.reduce((total, value, index)=> index!=0?total+', '+value:value, "" ) %>
+                    </td>
+                    <td>
+                        <%= data.position %>
+                    </td>
+                    <td>
+                        <%= data.createdAt %>
+                    </td>
+                    <td>
+                        <%= data.updatedAt %>
+                    </td>
+                    <td>
+                        <form name="deleteForm" action="/admin/products/<%= data._id %>/restore?_method=PATCH"
+                            method="POST">
+                            <a href="/admin/products/<%= data._id %>/restore" id="jsRestoreProductBtn">restore</a>
+                        </form>
+                        <form name="deleteForm" action="/admin/products/<%= data._id %>/forcedelete?_method=DELETE"
+                            method="POST">
+                            <a href="/admin/products/<%= data._id %>/delete" id="jsDeleteProductBtn">delete</a>
+                        </form>
+                    </td>
+                </tr>
+                <!-- khong co du lieu -->
+                <% })} else{ %>
+                    <tr>
+                        <td colspan="7" style="text-align:center;">
+                            Thùng rác rỗng
+                        </td>
+                    </tr>
+                    <% } %>
+        </tbody>
+    </table>
+</div>

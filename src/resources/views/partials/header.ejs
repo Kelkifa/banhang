@@ -1,0 +1,26 @@
+<div class="header">
+    <!-- header cache -->
+    <div class="header__logo">
+        <i class="icon-logoDesignBlack" style="font-size:250px;"></i>
+    </div>
+
+    <div class="header__bottom__container">
+        <div class="header__bottom">
+            <div class="header__bottom__search">
+                <input type="text" class="header__bottom__search__input" placeholder="Tìm sản phẩm ...">
+                <button class="header__bottom__search__btn">Tìm kiếm</button>
+            </div>
+        </div>
+        <a href="/cart" class="header__bottom__icon">
+            <i class="glyphicon glyphicon-shopping-cart"></i>
+            <div id="jsSelectedProducts">
+                <% if(cartNumber){ %>
+                    <div>
+                        <%= cartNumber %>
+                    </div>
+                    <% } %>
+            </div>
+            <!-- <div>1</div> -->
+        </a>
+    </div>
+</div>

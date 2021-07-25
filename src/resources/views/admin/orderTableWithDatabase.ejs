@@ -1,0 +1,42 @@
+<tr>
+    <% response.forEach((value, index)=>{ %>
+        <td>
+            <%= index+1 %>
+        </td>
+        <td><a href="/products/<%= value.productId %>/detail">
+                <%= value.productId %>
+            </a> </td>
+        <td>
+            <%= value.productName %>
+        </td>
+        <td>
+            <%= value.shape %>
+        </td>
+        <td>
+            <%= value.color %>
+        </td>
+        <td>
+            <%= value.soLuong %>
+        </td>
+        <td>
+            <%= value.thanhTien%>
+        </td>
+        <td>
+            <%= value.userName %>
+        </td>
+        <td>
+            <%= value.diaChi %>
+        </td>
+        <td>
+            <%= value.sdt %>
+        </td>
+        <td>
+            <%= value.createdAt %>
+        </td>
+        <td>
+            <form action="/admin/orders/<%= _id %> /delete?_method=PATCH" method="POST">
+                <a href="#" id="jsDeleteProductBtn">delete</a>
+            </form>
+        </td>
+        <% }) %>
+</tr>

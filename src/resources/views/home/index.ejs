@@ -1,0 +1,77 @@
+<div class="body__container">
+    <div class="body__fluid">
+        <ul class="mynavbar">
+            <li class="mynavbar__item" style="border-bottom: 4px solid #fa7d19;">Dạo</li>
+            <li class="mynavbar__item">Tất cả</li>
+            <li class="mynavbar__item">Tiện ích</li>
+            <li class="mynavbar__item">Mô hình</li>
+            <li class="mynavbar__item">Hàng mới về</li>
+        </ul>
+        <div class="content__container">
+            <div class="leftbar">
+                <div class="leftbar__title">
+                    <i class="material-icons">&#xe8ef;</i> <span>Danh mục</span>
+                </div>
+                <ul class="leftbar__list">
+                    <li class="leftbar__list__item">Sản phẩm</li>
+                    <li class="leftbar__list__item">Tiện ích</li>
+                    <li class="leftbar__list__item">Mô Hình</li>
+                    <li class="leftbar__list__item">Hàng mới về</li>
+                </ul>
+            </div>
+            <div class="content">
+                <div class="content__navbar__container CustomScroll">
+                    <div class="content__navbar">
+                        <span>Sắp xếp theo</span>
+                        <ul class="content__navbar__sort">
+                            <li class="content__navbar__sort__item">Phổ biến</li>
+                            <li class="content__navbar__sort__item">Mới nhất</li>
+                            <li class="content__navbar__sort__item">Bán chạy</li>
+                            <li class="navbar__sort__dropdown">
+                                <div class="navbar__sort__dropdown--show">
+                                    <span>Giá</span>
+                                    <i class="fa fa-angle-down"></i>
+                                </div>
+                                <ul class="navbar__sort__dropdown--hide">
+                                    <li>Thấp đến cao ASC</li>
+                                    <li>Cao đến thấp DESC</li>
+                                </ul>
+                                <div></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="content__products">
+                    <% response.forEach(value=>{ %>
+                        <div class="content__products__card">
+                            <a href="/products/<%= value._id %>/detail">
+                                <div class="content__products__card__img"><img src="<%= value.img?value.img[0]:"" %>"
+                                        alt="fail">
+                                </div>
+                                <div class="content__products__card__description CustomScroll padding-l-r">
+                                    <%= value.description %>
+                                </div>
+                                <div class="content__products__card__state padding-l-r">
+
+                                </div>
+                                <div class="content__products__card__cost padding-l-r">
+                                    <%= value.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ); %>đ
+                                </div>
+                            </a>
+                            <div class="content__products__card__icon__container padding-l-r">
+                                <i class="fa fa-heart-o jsHomeHeartIcon" productIs="<%= value._id %> "></i>
+                            </div>
+                            <div class="content__products__card__position padding-l-r">
+                                <%= value.position %>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</div>

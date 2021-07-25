@@ -1,0 +1,72 @@
+<div class="body__container">
+    <div class="body__fluid HomeCart CustomScroll">
+        <table class="table table-striped cart__list">
+            <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox">
+                        <div>All</div>
+                    </th>
+                    <th>
+                        Hình dáng
+                    </th>
+                    <th>
+                        Mô tả
+                    </th>
+                    <th>
+                        Hình dáng
+                    </th>
+                    <th>
+                        Màu sắc
+                    </th>
+                    <th>
+                        Đơn giá
+                    </th>
+                    <th>
+                        Số lượng
+                    </th>
+                    <th>
+                        Thành tiền
+                    </th>
+                    <th>
+                        Lựa chọn
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <% response.forEach((value, index)=>{ %>
+                    <tr>
+                        <td>
+                            <input type="checkbox">
+                        </td>
+                        <td>
+                            <img src="<%= value.productId.shapeLinks[value.productId.shapes.indexOf(value.shape)] %> "
+                                alt="can't load">
+                        </td>
+                        <td class="cart__table__description">
+                            <div>
+                                <%= value.productId.description %>
+                            </div>
+                        </td>
+                        <td>
+                            <%= value.shape %>
+                        </td>
+                        <td>
+                            <%= value.color %>
+                        </td>
+                        <td class="cart__table__item__cost">
+                            <%= value.productId.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ); %>đ
+                        </td>
+                        <td class="cart__table__item__soluong"><input type="number" min="1" max="100"
+                                value="<%= value.soLuong %>"></td>
+                        <td class="cart__table__item__cost">
+                            <%= (parseInt(value.productId.cost)*value.soLuong).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."
+                                ); %>
+                        </td>
+                        <td>Xoá</td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+    </div>
+</div>

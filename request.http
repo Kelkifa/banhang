@@ -1,0 +1,39 @@
+###  POST /admin/products/create  ###
+POST http://localhost:3000/admin/products/create
+Content-type: application/json
+
+{   
+    "name":"san pham 1",
+    "description":"description cua san pham 1",
+    "cost":"300.000d",
+    "position":"Dong Nai"
+}
+### DELETE /admin/products/:id/delete ###
+DELETE http://localhost:3000/admin/products/123213091/delete
+
+
+### GET /admin/products/:id/update ###
+GET http://localhost:3000/admin/products/60f15312df386e7b3ff1d6f2/update
+
+### GET /admin/products/trash ###
+GET http://localhost:3000/admin/products/trash
+
+### POST /login
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "token":"eyJhbGciOiJSUzI1NiIsImtpZCI6IjdmNTQ4ZjY3MDg2OTBjMjExMjBiMGFiNjY4Y2FhMDc5YWNiYzJiMmYiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiOTcwMjk5Nzk3NTMwLW44ZG1yN3JmYzNnM2Y4Z3Z2ZXUyNWVxZGhkaHVlMG5rLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiOTcwMjk5Nzk3NTMwLW44ZG1yN3JmYzNnM2Y4Z3Z2ZXUyNWVxZGhkaHVlMG5rLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTEzMzM2MDc4MTA0ODc3MDQ1NDY1IiwiZW1haWwiOiJodWFudmlwNDU1QGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJhdF9oYXNoIjoiSl92VkRqQ05lVGRkSTI2b3JhU1BKUSIsIm5hbWUiOiJOZ29jIFBoYW0iLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeEEyb1NwODFGR01YN0haMUYzTmZ6NGh5dWJHZVh6ME9BSktPcUw9czk2LWMiLCJnaXZlbl9uYW1lIjoiTmdvYyIsImZhbWlseV9uYW1lIjoiUGhhbSIsImxvY2FsZSI6ImVuIiwiaWF0IjoxNjI3MTE4NTU0LCJleHAiOjE2MjcxMjIxNTQsImp0aSI6ImQ5ODcyZDRjYjVmYjY5ZDBhMDQ0NWIzZWJkMzlmNGYyZjFhYWZhMjEifQ.SooUAc7mVK1Q_nkmRIzUYOOsd6dkeMs4eSH-YhMmg7TUMyIKUE3U6FPbmweyhgNN0VC7ZPR8qnVcZYVyVbIj52_kicSh4R1x1wEW8Ad1c7pNPWD1fmLVrfAz8dOJ_lGhTNLGyZGrSd5nNxnhJscdeeCQbynUNFEDhsDl_qWmVdgXDJoWRlhCka2vgLUIfkPMMBTn5f1idk6Gt8GZTZ7K32sHI3zWQiJT6XNpT37W6Nr_Cp5OLgJ7G9S31q-2BE8zLyte_Bgqs_VImkGGXu1QqMtY_xcvt8fFKpINmGma-r3QXmwWd8-wrIY48ACrKYTW81pQ26Wh_Q6D0bO1Qccmvw",
+}
+
+### POST /cart    them gio hang
+POST http://localhost:3000/cart
+Content-type: application/json
+
+{
+    "productId":"60f4f55f2ff5b01a5cbdf42a"
+}
+
+### GET /cart/number
+GET http://localhost:3000/cart/number
