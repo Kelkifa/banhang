@@ -29,7 +29,7 @@ app.use(express.json());
 
 /** cors */
 const cors = require('cors');
-const whitelist = ['http://localhost:3000', 'http://localhost:8080/', 'https://indini3d.herokuapp.com/products/60f4f55f2ff5b01a5cbdf42a/detail']
+const whitelist = ['http://localhost:3000', 'http://localhost:8080/', 'https://indini3d.herokuapp.com']
 const corsOptions = {
     origin: function (origin, callback) {
         console.log("** Origin of request " + origin);
