@@ -36,7 +36,7 @@
                         <%= response.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ); %>đ
                     </span>
                 </div>
-                <ul class="detail__group__right__order">
+                <ul class="detail__group__right__order CustomScroll">
                     <li class="detail__group__right__order__item">
                         <div class="detail__group__right__order__item__title">Hình dáng</div>
                         <ul class="detail__group__right__order__item__content">
@@ -76,12 +76,20 @@
                     </li>
                 </ul>
                 <div class="detail__group__right__btn">
-                    <button class="detail__group__right__btn__left" productId="<%= response._id %>" id="jsAddToCart">
+                    <button class="detail__group__right__btn__left btn" productId="<%= response._id %>"
+                        id="jsAddToCart">
                         <i></i>
                         <span>Thêm Vào Giỏ</span>
                     </button>
-                    <button class="detail__group__right__btn__right" id="jsBuy">Mua
-                        Ngay</button>
+                    <form action="/cart" method="POST" name="jsBuyForm">
+                        <input type="hidden" name="shape" value="">
+                        <input type="hidden" name="color" value="">
+                        <input type="hidden" name="soLuong" value="">
+                        <input type="hidden" name="productId" value="<%= response._id %>">
+                        <input type="hidden" name="buyNow" value="true">
+                        <div class="detail__group__right__btn__right btn" id="jsBuy">Mua
+                            Ngay</div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -90,5 +98,22 @@
 
         </div>
 
+    </div>
+</div>
+<div class="dialog jsDialog--success">
+    <div class="notifice notifice--success">
+        <i class='fa fa-check'></i>
+        <h4 class="notifice__text">
+            Thêm thành công
+        </h4>
+    </div>
+
+</div>
+<div class="dialog jsDialog--loader">
+    <div class="notifice notifice--loader">
+        <div class="loader"></div>
+        <h4 class="notifice__text">
+            Loading ...
+        </h4>
     </div>
 </div>

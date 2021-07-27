@@ -44,11 +44,13 @@ class HomeController {
      * public
      */
     async cart(req, res) {
-        // if (!req.session.isAuth) return res.status(400).redirect('/login?status=not logined');
+        const { success, cartId } = req.query;
+        // console.log(success, cartId);
         try {
-            const response = await cartModel.find({ userId: req.session.id }).populate('productId');
+            const response = await cartModel.find({ userId: req.session.id }).populate('productId').sort({ updatedAt: 'desc' });
+            const tickedProduct = success == 'true' ? cartId : undefined;
             // return res.json({ success: true, message: 'a' });
-            return res.render("home/cart", { response });
+            return res.render("home/cart", { response, tickedProduct });
         } catch (err) {
             console.log(err);
             return res.status(500).render("home/cart", { response: [], success: false, message: err })
@@ -74,9 +76,14 @@ class HomeController {
      * public
     */
     async addToCart(req, res) {
-        const { productId, soLuong, shape, color } = req.body;
+        const { productId, soLuong, shape, color, buyNow } = req.body;
+        if (!productId || !soLuong || !shape || !color) {
+            if (buyNow == "true") {
+                return res.status(400).redirect('back');
+            }
+            return res.status(400).json({ success: false, message: 'Bad Request' });
 
-        if (!productId || !soLuong || !shape || !color) return res.status(400).json({ success: false, message: 'Bad Request' });
+        }
         try {
             //kiem tra san pham hop le
             const productRequest = await productModel.findOne({ _id: productId });
@@ -84,23 +91,50 @@ class HomeController {
             if (!productRequest.shapes.includes(shape) || !productRequest.colors.includes(color)) return res.status(400).json({ success: false, message: 'Bad Request' });
             //luu cart
             const newCart = new cartModel({ userId: req.session.id, soLuong, color, shape, productId });
-            await newCart.save();
+            const responseNewCart = await newCart.save();
 
             const cartResponse = await cartModel.find({ userId: req.session.id });
             req.session.cartNumber = cartResponse.length;
-
-
-            //So Luong san pham trong cart
-            // const cartResponse = await cartModel.find({ userId: req.session.userInfo }).select('_id');
-            // const selectedProducts = cartResponse.length;
-
+            //Press buy now buttom
+            if (buyNow == "true")
+                return res.redirect(`/cart?buy=true&cartId=${responseNewCart._id}&success=true`);
+            //Press add to cart buttom
             return res.json({ success: true, message: 'Add to Cart Successfully', selectedProducts: cartResponse.length });
+
         } catch (err) {
             console.log(err);
+            //Press buy now buttom
+            if (buyNow == "true")
+                return res.status(500).redirect('/cart?success=false&message=InternalServer');
+            //Press add to cart buttom
             return res.status(500).json({ success: false, message: 'Internal Server' });
         }
     }
+    /**[DELETE] /cart/:id/delete
+     * Xoa vinh vien 1 cart
+     * public
+     */
+    async cartDelete(req, res) {
+        const { id } = req.params;
+        if (id === undefined) return res.status(400).redirect('/cart?status=BadRequest');
+        try {
+            await cartModel.deleteOne({ _id: id });
+            req.session.cartNumber = req.session.cartNumber - 1;
+            return res.redirect('/cart?status=success');
+        } catch (err) {
+            console.log(err);
+            return res.status(500).redirect('/cart?status="InternalServer');
+        }
+    }
 
+    /**[POST] /order
+     * Tao 1 order
+     * public
+     */
+    async order(req, res) {
+        console.log(req.body);
+        return res.json({ success: true, message: 'Order' });
+    }
     /**[GET] /login 
      * render ra trang login
      * public

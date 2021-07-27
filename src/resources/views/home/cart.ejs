@@ -1,72 +1,156 @@
 <div class="body__container">
-    <div class="body__fluid HomeCart CustomScroll">
-        <table class="table table-striped cart__list">
-            <thead>
-                <tr>
-                    <th>
-                        <input type="checkbox">
-                        <div>All</div>
-                    </th>
-                    <th>
-                        Hình dáng
-                    </th>
-                    <th>
-                        Mô tả
-                    </th>
-                    <th>
-                        Hình dáng
-                    </th>
-                    <th>
-                        Màu sắc
-                    </th>
-                    <th>
-                        Đơn giá
-                    </th>
-                    <th>
-                        Số lượng
-                    </th>
-                    <th>
-                        Thành tiền
-                    </th>
-                    <th>
-                        Lựa chọn
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <% response.forEach((value, index)=>{ %>
-                    <tr>
-                        <td>
-                            <input type="checkbox">
-                        </td>
-                        <td>
-                            <img src="<%= value.productId.shapeLinks[value.productId.shapes.indexOf(value.shape)] %> "
-                                alt="can't load">
-                        </td>
-                        <td class="cart__table__description">
-                            <div>
-                                <%= value.productId.description %>
+    <div class="body__fluid home-cart CustomScroll">
+        <div class="home-cart__group">
+            <form method="POST" action="/order" name="buy-form">
+                <table class="table table-striped cart__list">
+                    <thead>
+                        <tr>
+                            <th>
+
+                            </th>
+                            <th>
+                                Hình dáng
+                            </th>
+                            <th>
+                                Mô tả
+                            </th>
+                            <th>
+                                Hình dáng
+                            </th>
+                            <th>
+                                Màu sắc
+                            </th>
+                            <th>
+                                Đơn giá
+                            </th>
+                            <th>
+                                Số lượng
+                            </th>
+                            <th>
+                                Thành tiền
+                            </th>
+                            <th>
+                                Lựa chọn
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(response.length> 0) { response.forEach((value, index)=>{ %>
+                            <tr>
+                                <td>
+                                    <input class="jsChoosedProduct" name="productId" value="<%= value.productId._id %> "
+                                        type="checkbox" <%=value._id==tickedProduct ? 'checked' :'' %> >
+                                </td>
+                                <td>
+                                    <img src="<%= value.productId.shapeLinks[value.productId.shapes.indexOf(value.shape)] %> "
+                                        alt="can't load">
+                                </td>
+                                <td class="cart__table__description">
+                                    <div>
+                                        <%= value.productId.description %>
+                                    </div>
+                                </td>
+                                <td>
+                                    <%= value.shape %>
+                                </td>
+                                <td>
+                                    <%= value.color %>
+                                </td>
+                                <td class="cart__table__item__cost">
+                                    <%= value.productId.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ); %>đ
+                                </td>
+                                <td class="cart__table__item__soluong jsSoLuong"><input
+                                        singleCost="<%= parseInt(value.productId.cost) %> " class="jsCartSoLuongInput"
+                                        type="number" min="1" max="100" value="<%= value.soLuong %>">
+                                </td>
+                                <td class="cart__table__item__cost">
+                                    <%= (parseInt(value.productId.cost)*value.soLuong).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."
+                                        ); %>
+                                </td>
+                                <td>
+                                    <a href="#" class="delete-cart-btn" formindex="<%= index %> ">Xoá</a>
+                                </td>
+                            </tr>
+                            <% })}else{ %>
+                                <tr>
+                                    <td colspan=9>Bạn không có sản phẩm trong giỏ</td>
+                                </tr>
+                                <% } %>
+                    </tbody>
+                </table>
+
+                <!-- Dialog buy form -->
+                <div class="dialog" id="jsDialog" showBtnId="jsBuyNowBtn">
+                    <div class="buy-form">
+                        <div class="dialog__form">
+                            <div class="dialog__input-group">
+                                <label for="fullname" class="form-label">Họ và Tên</label>
+                                <input name="fullname" type="text" class="form-control" placeholder="Họ và Tên"
+                                    required>
                             </div>
-                        </td>
-                        <td>
-                            <%= value.shape %>
-                        </td>
-                        <td>
-                            <%= value.color %>
-                        </td>
-                        <td class="cart__table__item__cost">
-                            <%= value.productId.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ); %>đ
-                        </td>
-                        <td class="cart__table__item__soluong"><input type="number" min="1" max="100"
-                                value="<%= value.soLuong %>"></td>
-                        <td class="cart__table__item__cost">
-                            <%= (parseInt(value.productId.cost)*value.soLuong).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."
-                                ); %>
-                        </td>
-                        <td>Xoá</td>
-                    </tr>
-                    <% }) %>
-            </tbody>
-        </table>
+                            <div class="dialog__input-group">
+                                <label for="sdt" class="form-label">Số điện thoại</label>
+                                <input name="sdt" type="text" class="form-control" placeholder="vd: 01234567891"
+                                    required>
+                            </div>
+                            <div class="dialog__input-group">
+                                <label for="tinh_thanhPho" class="form-label">Tỉnh/Thành phố</label>
+                                <input name="tinh_thanhPho" type="text" class="form-control"
+                                    placeholder="Tp.Hồ Chí Minh" required>
+                            </div>
+                            <div class="dialog__input-group">
+                                <label for="quan_huyen" class="form-label">Quận/Huyện</label>
+                                <input name="quan_huyen" type="text" class="form-control" placeholder="Quận 1" required>
+                            </div>
+                            <div class="dialog__input-group">
+                                <label for="xa_phuong" class="form-label">Xã/Phường</label>
+                                <input name="xa_phuong" type="text" class="form-control" placeholder="Phường Bến Thành"
+                                    required>
+                            </div>
+                            <div class="dialog__input-group">
+                                <label for="xa_phuong" class="form-label">Địa chỉ cụ thể</label>
+                                <input name="xa_phuong" type="text" class="form-control" placeholder="Địa chỉ cụ thể"
+                                    required>
+                            </div>
+
+                            <button class="btn btn-comeback" id="jsComebackBtn">Trở
+                                lại</button>
+                            <button type="submit" name="submit" value="submited" class="btn btn-primary btn-buy">Đặt
+                                Hàng</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- END home-cart__group -->
+
+        <!-- buy group -->
+        <% if(response.length>0){ %>
+            <div class="home-cart__group home-cart__group--buy">
+                <ul class="home-cart__group__left">
+                    <li><input type="checkbox" id="jsChooseAllProducts"></li>
+                    <li>Chọn tất cả</li>
+                    <li>
+                        Xoá
+                    </li>
+                </ul>
+                <ul class="home-cart__group__right">
+                    <li>
+                        <span>Tổng số lượng sản phẩm (</span><span id="jsBuyGroupProductNumber">0</span><span> sản
+                            phẩm)</span>
+                    </li>
+                    <li id="jsBuyNowCost">0đ</li>
+                    <li>
+                        <button id="jsBuyNowBtn">Mua Ngay</button>
+                    </li>
+                </ul>
+            </div>
+            <% } %>
     </div>
+    <!-- delete form -->
+    <% response.forEach((value, index)=>{ %>
+        <form name="CartDelete<%= index %> " action="/cart/<%= value._id %>/delete?_method=DELETE"
+            formindex="<%= index %> " method="POST"></form>
+
+        <% }) %>
 </div>
