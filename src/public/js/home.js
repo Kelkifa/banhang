@@ -2,6 +2,7 @@
 
 $(document).ready(function () {
     /** Home */
+
     //change heart icon
     $('.jsHomeHeartIcon').click(function () {
         $(this).toggleClass('fa-heart-o');
@@ -85,6 +86,11 @@ $(document).ready(function () {
         //get data
         const selectedColor = $('.jsShowImageOrder[state=checked][jsName=color]').attr('jsValue');
         const selectedShape = $('.jsShowImageOrder[state=checked][jsName=shape]').attr('jsValue');
+        //check choosed shape and color
+        if ((!selectedColor || !selectedShape)) {
+            alert('Vui long chon hinh dang va mau sac');
+            return;
+        }
         const soLuong = $('#jsSoLuongInput').val();
         //push data to form
         $('form[name=jsBuyForm] input[name=color]').val(selectedColor);
@@ -94,7 +100,12 @@ $(document).ready(function () {
         $('form[name=jsBuyForm]').submit();
     });
 
+
     /** Cart */
+    //Thay doi gia trong buy group
+    changeTotalCostAndProductNumber();
+    //Add shape and color form input
+    addShapeAndColorInput();
     //thay doi tong tien khi so luong thay doi
     $('.jsCartSoLuongInput').change(function () {
         const soLuong = $(this).val();
@@ -103,7 +114,7 @@ $(document).ready(function () {
         $(this).parent().next().text(stringTongTien);
 
         //Change total cost in buy group
-        ChangeTotalCost();
+        changeTotalCostAndProductNumber();
     });
     //submit form delete cart
     $('form[name=CartDelete]').children('a').click(function (e) {
@@ -118,10 +129,7 @@ $(document).ready(function () {
         else {
             $('.jsChoosedProduct').prop('checked', false);
         }
-
-        //Change tatal cost in buy group
-
-        ChangeTotalCost();
+        changeTotalCostAndProductNumber();
     });
     //Click to checkbox input
     $('.jsChoosedProduct').click(function () {
@@ -132,11 +140,11 @@ $(document).ready(function () {
             $('#jsChooseAllProducts').prop('checked', true);
 
         //Change total cost in buy group
-        ChangeTotalCost();
+        changeTotalCostAndProductNumber();
     });
     //show buy form
-    $('#jsDialog .btn').click(function () {
-        $(this).parent().submit();
+    $('#jsDialog button[type=submit]').click(function () {
+        $('form[name="buy-form"]').submit();
     });
     //Hide buy form
     $('#jsComebackBtn').click(function () {
@@ -144,7 +152,16 @@ $(document).ready(function () {
     })
     //Click to buy now button
     $('#jsBuyNowBtn').click(function () {
-        $('.dialog').addClass('dialog--show');
+        //check choosed products
+        if ($('.jsChoosedProduct:checked').length > 0) {
+            $('#jsDialog').addClass('dialog--show');
+            return;
+        }
+        $('.jsNotificeDialog--fail').addClass('dialog--show');
+        // setInterval(function () {
+        //     $('.jsNotificeDialog--fail').removeClass('dialog--show');
+        // }, 1000)
+
     });
     //Click to delete cart btn
     $('.delete-cart-btn').click(function (e) {
@@ -152,18 +169,38 @@ $(document).ready(function () {
         const formindex = $(this).attr('formindex');
         $(`form[formindex="${formindex}"]`).submit();
     });
+    //Change checkbox input
+    $('.jsChoosedProduct, #jsChooseAllProducts').change(function () {
+        addShapeAndColorInput();
+    });
 });
 
 
 
-
-function ChangeTotalCost() {
+//change total cost and product number in buy group
+function changeTotalCostAndProductNumber() {
     var totalCost = 0;
+    var productNumber = 0;
     $('.jsChoosedProduct:checked').each(function () {
         const soLuongInputEl = $(this).parents('tr').children('.jsSoLuong').children('input');
         const soLuong = parseInt(soLuongInputEl.val())
         const singleCost = parseInt(soLuongInputEl.attr('singleCost'));
         totalCost += soLuong * singleCost;
+        productNumber += soLuong;
     });
     $('#jsBuyNowCost').text(totalCost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "đ");
+    $('#jsBuyGroupProductNumber').text(productNumber);
+}
+function addShapeAndColorInput() {
+    //get element
+    const checkedShapeEle = $('.jsChoosedProduct:checked').parents('tr').children('#jsCartShape');
+    const checkedColorEle = $('.jsChoosedProduct:checked').parents('tr').children('#jsCartColor');
+    //remove shape and color hidden input
+    $('input.jsShapeColorHiddenInput').remove();
+    //add shape and color hidden input
+    const shape = checkedShapeEle.attr('jsShapeValue')
+    checkedShapeEle.children('div').html(`<input class=jsShapeColorHiddenInput type=hidden name=shape[] value="${shape}" />`);
+
+    const color = checkedColorEle.attr('jsColorValue')
+    checkedColorEle.children('div').html(`<input class=jsShapeColorHiddenInput type=hidden name=color[] value="${color}" />`);
 }

@@ -18,7 +18,7 @@
             <label for="inputAddress" class="form-label">Image link</label>
             <textarea name="img" type="text" class="form-control CustomScroll jsImageInput" rows="3"
                 preShow="#jsPreShowImage"
-                placeholder="Đường dẫn đến hình ảnh 1&#10;Đường dẫn đến hình ảnh 2&#10;Đường dẫn đến hình ảnh 3 ..."><%= response.img.reduce(function(total,value,index){return index!=0?total+'\n'+value:value}) %></textarea>
+                placeholder="Đường dẫn đến hình ảnh 1&#10;Đường dẫn đến hình ảnh 2&#10;Đường dẫn đến hình ảnh 3 ..."><%= response.img.reduce(function(total,value,index){return index!=0?total+'\n'+value:value}, "") %></textarea>
         </div>
         <div class="col-md-6 admin__product__create__InputGroup">
             <label for="inputAddress" class="form-label">Image pre show</label>
@@ -29,24 +29,24 @@
         <div class="col-md-6 admin__product__create__InputGroup">
             <label for="inputPassword4" class="form-label">Shape name</label>
             <textarea name="shapes" type="text" class="form-control CustomScroll" rows="3"
-                placeholder="Tên hình dáng 1&#10;Tên hình dáng 2&#10;Tên hình dáng 3"><%= response.shapes.reduce(function(total,value,index){return index!=0?total+'\n'+value:value}) %></textarea>
+                placeholder="Tên hình dáng 1&#10;Tên hình dáng 2&#10;Tên hình dáng 3"><%= response.shapes.reduce(function(total,value,index){return index!=0?total+'\n'+value:value},"") %></textarea>
         </div>
         <div class="col-md-6 admin__product__create__InputGroup">
             <label for="inputPassword4" class="form-label">Color name</label>
             <textarea name="colors" type="text" class="form-control CustomScroll" rows="3"
-                placeholder="Tên màu sắc 1&#10;Tên màu sắc 2&#10;Tên màu sắc 3"><%= response.colors.reduce(function(total,value,index){return index!=0?total+'\n'+value:value}) %></textarea>
+                placeholder="Tên màu sắc 1&#10;Tên màu sắc 2&#10;Tên màu sắc 3"><%= response.colors.reduce(function(total,value,index){return index!=0?total+'\n'+value:value}, "") %></textarea>
         </div>
         <div class="col-md-6 admin__product__create__InputGroup">
             <label for="inputPassword4" class="form-label">Shape image links</label>
             <textarea name="shapeLinks" type="text" class="form-control CustomScroll jsImageInput" rows="3"
                 preShow="#preShowShape"
-                placeholder="Đường dẫn ảnh 1&#10;Đường dẫn ảnh 2&#10;Đường dẫn ảnh 3..."><%= response.shapeLinks.reduce(function(total,value,index){return index!=0?total+'\n'+value:value}) %></textarea>
+                placeholder="Đường dẫn ảnh 1&#10;Đường dẫn ảnh 2&#10;Đường dẫn ảnh 3..."><%= response.shapeLinks.reduce(function(total,value,index){return index!=0?total+'\n'+value:value},"") %></textarea>
         </div>
         <div class="col-md-6 admin__product__create__InputGroup">
             <label for="inputPassword4" class="form-label">Color image link</label>
             <textarea name="colorLinks" type="text" class="form-control CustomScroll jsImageInput" rows="3"
                 preShow="#preShowColor"
-                placeholder="Link hình ảnh màu 1&#10;Link hình ảnh màu 2&#10;Link hình ảnh màu 3..."><%= response.colorLinks.reduce(function(total,value,index){return index!=0?total+'\n'+value:value}) %></textarea>
+                placeholder="Link hình ảnh màu 1&#10;Link hình ảnh màu 2&#10;Link hình ảnh màu 3..."><%= response.colorLinks.reduce(function(total,value,index){return index!=0?total+'\n'+value:value},"") %></textarea>
         </div>
         <div class="col-md-6 admin__product__create__InputGroup">
             <label for="inputAddress" class="form-label">Shape image pre show</label>

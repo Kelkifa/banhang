@@ -83,9 +83,11 @@ $color_orange:#fa7d19;
         border-radius: 3px;
         i{
             font-size: 40px;
-            color: #69ce62;
         }
         .notifice__text{
+            text-align: center;
+            font-size: 15px;
+            color: rgba(231, 229, 229, 0.849);
         }
     }
     .loader {

@@ -42,7 +42,7 @@
                         <ul class="detail__group__right__order__item__content">
                             <% response.shapes.forEach((value, index)=>{ %>
                                 <li class="detail__group__right__order__item__content__item jsShowImageOrder"
-                                    jsName="shape" jsValue="<%= value %>"
+                                    jsName="shape" jsValue="<%= value %>" statue="false"
                                     src="<%= response.shapeLinks?response.shapeLinks[index]:'' %>">
                                     <%= value %> <i class="fa fa-check-circle-o text-success CheckedIcon"></i>
                                 </li>
@@ -101,8 +101,8 @@
     </div>
 </div>
 <div class="dialog jsDialog--success">
-    <div class="notifice notifice--success">
-        <i class='fa fa-check'></i>
+    <div class="notifice">
+        <i class='fa fa-check' style='color:#69ce62;'></i>
         <h4 class="notifice__text">
             Thêm thành công
         </h4>

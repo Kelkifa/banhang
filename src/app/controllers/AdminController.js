@@ -80,11 +80,11 @@ class AdminControll {
     async productCreateStore(req, res, next) {
         try {
             const { name, description, cost, img, position, shapes, colors, shapeLinks, colorLinks } = req.body;
-            const imgArr = img.split('\r\n');
-            const shapeArr = shapes.split('\r\n');
-            const shapeLinkArr = shapeLinks.split('\r\n');
-            const colorArr = colors.split('\r\n');
-            const colorLinkArr = colorLinks.split('\r\n');
+            const imgArr = img == "" ? [] : img.split('\r\n');
+            const shapeArr = shapes == "" ? [] : shapes.split('\r\n');
+            const shapeLinkArr = shapeLinks == "" ? [] : shapeLinks.split('\r\n');
+            const colorArr = colors == "" ? [] : colors.split('\r\n');
+            const colorLinkArr = colorLinks == "" ? [] : colorLinks.split('\r\n');
             const newProduct = new productModel({ name, description, cost, img: imgArr, position, shapes: shapeArr, colors: colorArr, shapeLinks: shapeLinkArr, colorLinks: colorLinkArr });
             await newProduct.save();
             return res.redirect(`/admin/products/create?finish=created&product=${name}`);
@@ -159,29 +159,10 @@ class AdminControll {
      */
     async orderTable(req, res) {
         try {
-            const orderResponse = await orderModel.find({});
-            const response = orderResponse.map(async value => {
-                const productResponse = await productModel.findOne({ _id: value.productId }).select('name cost');
-                const userResponse = await userModel.findOne({ _id: value.userId });
-                return {
-                    _id: value._id,
-                    productId: value.productId,
-                    productName: productResponse.name,
-                    shape: value.shap,
-                    color: value.color,
-                    soLuong: value.soLuong,
-                    thanhTien: value.soLuong * productResponse.cost,
-                    userName: userResponse.fullname,
-                    diaChi: value.diaChi,
-                    sdt: value.sdt,
-                    createdAt: value.createdAt,
-                    updateAt: value.updatedAt,
-                }
-            })
-
-            return res.render('admin/orderTable', { layout: 'layouts/adminLayout', response });
+            const response = await orderModel.find().populate('productId');
+            return res.render('admin/orderTable', { layout: 'layouts/adminLayout', response, success: true });
         } catch (err) {
-            return res.status(500).json({ success: false, message: err });
+            return res.status(500).render('admin/orderTable', { layout: 'layouts/adminLayout', response: [], success: false });
         }
     }
     /**[GET] /admin/orders/trash
@@ -190,29 +171,10 @@ class AdminControll {
      */
     async orderTrash(req, res) {
         try {
-            const orderResponse = await orderModel.findDeleted({});
-            const response = orderResponse.map(async value => {
-                const productResponse = await productModel.findOne({ _id: value.productId }).select('name cost');
-                const userResponse = await userModel.findOne({ _id: value.userId });
-                return {
-                    _id: value._id,
-                    productId: value.productId,
-                    productName: productResponse.name,
-                    shape: value.shap,
-                    color: value.color,
-                    soLuong: value.soLuong,
-                    thanhTien: value.soLuong * productResponse.cost,
-                    userName: userResponse.fullname,
-                    diaChi: value.diaChi,
-                    sdt: value.sdt,
-                    createdAt: value.createdAt,
-                    updateAt: value.updatedAt,
-                }
-            })
-
-            return res.render('admin/orderTrash', { layout: 'layouts/adminLayout', response });
+            const response = await orderModel.findDeleted().populate('productId');
+            return res.render('admin/orderTable', { layout: 'layouts/adminLayout', response, success: true });
         } catch (err) {
-            return res.status(500).json({ success: false, message: err });
+            return res.status(500).render('admin/orderTable', { layout: 'layouts/adminLayout', response: [], success: false });
         }
     }
     /**[PATCH] /admin/orders/:id/delete
@@ -225,6 +187,7 @@ class AdminControll {
             await orderModel.delete({ _id: id });
             return res.redirect('/admin/orders/trash?success=true');
         } catch (err) {
+            console.log(err);
             return res.status(500), json({ success: false, message: err })
         }
     }

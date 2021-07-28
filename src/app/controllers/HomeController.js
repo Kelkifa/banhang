@@ -132,8 +132,52 @@ class HomeController {
      * public
      */
     async order(req, res) {
-        console.log(req.body);
-        return res.json({ success: true, message: 'Order' });
+        const {
+            productId,
+            soLuong,
+            fullname,
+            tinh_thanhPho,
+            quan_huyen,
+            xa_phuong,
+            sdt,
+            diaChi,
+            color,
+            shape,
+            submit
+        } = req.body;
+        if (!productId || !soLuong || !fullname || !tinh_thanhPho || !quan_huyen || !xa_phuong || !sdt || !submit || !color || !shape)
+            return res.status(402).redirect('/cart?success=false&message=Bad Request');
+        if (shape.length != productId.length && color.length != productId.length)
+            return res.status(402).redirect('/cart?success=false&message=Bad Request');
+        if (submit !== 'submited')
+            return res.status(402).redirect('/cart?success=false&message=Bad Request');
+        try {
+            console.log(req.body);
+            const newOrder = productId.map((value, index) => {
+                const [productId, soLuongIndex] = value.split(',');
+
+                return {
+                    productId,
+                    soLuong: soLuong[soLuongIndex],
+                    fullname,
+                    sdt,
+                    color: color[index],
+                    shape: shape[index],
+                    diaChi: {
+                        tinh_thanhPho,
+                        quan_huyen,
+                        xa_phuong,
+                        detail: diaChi,
+                    },
+                }
+            });
+            await orderModel.create(newOrder);
+            return res.redirect('/cart?success=true&message=sucessfully');
+
+        } catch (err) {
+            console.log(err)
+            return res.json(500).redirect('/cart?success=false&message=Internal Server');
+        }
     }
     /**[GET] /login 
      * render ra trang login

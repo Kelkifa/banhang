@@ -24,11 +24,11 @@
                     <td>
                         <%= index+1 %>
                     </td>
-                    <td><a href="/products/<%= value.productId %>/detail">
-                            <%= value.productId %>
+                    <td><a href="/products/<%= value.productId._id %>/detail">
+                            <%= value.productId._id %>
                         </a> </td>
                     <td>
-                        <%= value.productName %>
+                        <%= value.productId.name %>
                     </td>
                     <td>
                         <%= value.shape %>
@@ -39,14 +39,18 @@
                     <td>
                         <%= value.soLuong %>
                     </td>
-                    <td>
-                        <%= value.thanhTien%>
+                    <td style="color: red; font-weight: 500;">
+                        <%= (value.productId.cost * value.soLuong).toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." )
+                            + "đ" ; %>
                     </td>
                     <td>
-                        <%= value.userName %>
+                        <%= value.fullname %>
                     </td>
                     <td>
-                        <%= value.diaChi %>
+                        <%= value.diaChi.tinh_thanhPho %>, <br />
+                            <%= value.diaChi.quan_huyen %>, <br />
+                                <%= value.diaChi.xa_phuong %>, <br />
+                                    <%= value.diaChi.detail %>, <br />
                     </td>
                     <td>
                         <%= value.sdt %>
@@ -55,14 +59,14 @@
                         <%= value.createdAt %>
                     </td>
                     <td>
-                        <form action="/admin/orders/<%= _id %> /delete?_method=PATCH" method="POST">
+                        <form action="/admin/orders/<%= value._id %>/delete?_method=PATCH" method="POST">
                             <a href="#" id="jsDeleteProductBtn">delete</a>
                         </form>
                     </td>
                 </tr>
                 <% })} else{ %>
                     <tr>
-                        <td colspan="10" style="text-align: center;">Không có sản phẩm đặt</td>
+                        <td colspan="11" style="text-align: center;">Không có sản phẩm đặt</td>
                     </tr>
                     <% } %>
         </tbody>

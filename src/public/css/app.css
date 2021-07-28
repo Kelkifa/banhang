@@ -96,8 +96,11 @@ body::-webkit-scrollbar-track {
     height: 110px;
     border-radius: 3px; }
     .dialog .notifice i {
-      font-size: 40px;
-      color: #69ce62; }
+      font-size: 40px; }
+    .dialog .notifice .notifice__text {
+      text-align: center;
+      font-size: 15px;
+      color: rgba(231, 229, 229, 0.849); }
   .dialog .loader {
     border: 6px solid #3131312f;
     /* Light grey */

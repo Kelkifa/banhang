@@ -29,8 +29,8 @@
                     <td>
                         <%= data.name %>
                     </td>
-                    <td>
-                        <%= data.cost %>
+                    <td style="color: red;font-weight: 500;">
+                        <%= data.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ) + "đ" ; %>
                     </td>
                     <td>
                         <%= data.description %>
@@ -83,7 +83,7 @@
                 <!-- khong co du lieu -->
                 <% })} else{ %>
                     <tr>
-                        <td colspan="7" style="text-align:center;">
+                        <td colspan="13" style="text-align:center;">
                             Không có dữ liệu. <a href="/admin/products/create">Tạo sản phẩm</a>
                         </td>
                     </tr>

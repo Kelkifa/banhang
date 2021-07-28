@@ -38,8 +38,9 @@
                         <% if(response.length> 0) { response.forEach((value, index)=>{ %>
                             <tr>
                                 <td>
-                                    <input class="jsChoosedProduct" name="productId" value="<%= value.productId._id %> "
-                                        type="checkbox" <%=value._id==tickedProduct ? 'checked' :'' %> >
+                                    <input class="jsChoosedProduct" name="productId[]"
+                                        value="<%= value.productId._id+','+index %>" type="checkbox"
+                                        <%=value._id==tickedProduct ? 'checked' :'' %> >
                                 </td>
                                 <td>
                                     <img src="<%= value.productId.shapeLinks[value.productId.shapes.indexOf(value.shape)] %> "
@@ -50,16 +51,24 @@
                                         <%= value.productId.description %>
                                     </div>
                                 </td>
-                                <td>
-                                    <%= value.shape %>
+                                <td id="jsCartShape" jsShapeValue="<%=value.shape %>">
+                                    <span>
+                                        <%= value.shape %>
+                                    </span>
+                                    <div>
+                                    </div>
                                 </td>
-                                <td>
-                                    <%= value.color %>
+                                <td id="jsCartColor" jsColorValue="<%= value.color %>">
+                                    <span>
+                                        <%= value.color %>
+                                    </span>
+                                    <div>
+                                    </div>
                                 </td>
                                 <td class="cart__table__item__cost">
                                     <%= value.productId.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "." ); %>đ
                                 </td>
-                                <td class="cart__table__item__soluong jsSoLuong"><input
+                                <td class="cart__table__item__soluong jsSoLuong"><input name="soLuong[]"
                                         singleCost="<%= parseInt(value.productId.cost) %> " class="jsCartSoLuongInput"
                                         type="number" min="1" max="100" value="<%= value.soLuong %>">
                                 </td>
@@ -73,7 +82,8 @@
                             </tr>
                             <% })}else{ %>
                                 <tr>
-                                    <td colspan=9>Bạn không có sản phẩm trong giỏ</td>
+                                    <td colspan=9>Bạn không có sản phẩm trong giỏ. <a href="/home">Xem sản phẩm.</a>
+                                    </td>
                                 </tr>
                                 <% } %>
                     </tbody>
@@ -109,7 +119,7 @@
                             </div>
                             <div class="dialog__input-group">
                                 <label for="xa_phuong" class="form-label">Địa chỉ cụ thể</label>
-                                <input name="xa_phuong" type="text" class="form-control" placeholder="Địa chỉ cụ thể"
+                                <input name="diaChi" type="text" class="form-control" placeholder="Địa chỉ cụ thể"
                                     required>
                             </div>
 
@@ -136,7 +146,9 @@
                 </ul>
                 <ul class="home-cart__group__right">
                     <li>
-                        <span>Tổng số lượng sản phẩm (</span><span id="jsBuyGroupProductNumber">0</span><span> sản
+                        <span>Tổng số lượng sản phẩm (</span><span id="jsBuyGroupProductNumber">
+                            <%= tickedProduct?"1":"0" %>
+                        </span><span> sản
                             phẩm)</span>
                     </li>
                     <li id="jsBuyNowCost">0đ</li>
@@ -153,4 +165,14 @@
             formindex="<%= index %> " method="POST"></form>
 
         <% }) %>
+</div>
+
+
+<div class="dialog jsNotificeDialog--fail">
+    <div class="notifice notifice--fail">
+        <i class='fa fa-times-circle-o' style="color:red;"></i>
+        <h4 class="notifice__text">
+            Bạn chưa chọn sản phẩm
+        </h4>
+    </div>
 </div>
