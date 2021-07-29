@@ -18,30 +18,28 @@ class AuthController {
     */
     async adminLoginCheck(req, res) {
         const { username, password } = req.body;
-        console.log(req.body);
+        if (!username || !password)
+            return res.status(400).redirect('/auth/admin/login?success=false&message=Bad Request');
+        try {
+            const usernameResponse = await userModel.findOne({ username: username });
+            if (!usernameResponse)
+                return res.status(400).redirect('/auth/admin/login?success=false&message=Bad Request');
+            const bcryptResponse = await bcryptHandler.comparePassword(password, usernameResponse.password)
+            if (bcryptResponse.success == false) {
+                console.log(bcryptResponse.result);
+                return res.status(500).redirect('/auth/admin/login?success=false&message=Internal Server');
+            }
+            if (bcryptResponse.result == false)
+                return res.status(400).redirect('/auth/admin/login?success=false&message=Bad Request');
 
-        // if (!username || !password)
-        //     return res.status(400).redirect('/auth/admin/login?success=false&message=Bad Request');
-        // try {
-        //     const usernameResponse = await userModel.findOne({ username: username });
-        //     if (!usernameResponse)
-        //         return res.status(400).redirect('/auth/admin/login?success=false&message=Bad Request');
-        //     const bcryptResponse = await bcryptHandler.comparePassword(password, usernameResponse.password)
-        //     if (bcryptResponse.success == false) {
-        //         console.log(bcryptResponse.result);
-        //         return res.status(500).redirect('/auth/admin/login?success=false&message=Internal Server');
-        //     }
-        //     if (bcryptResponse.result == false)
-        //         return res.status(400).redirect('/auth/admin/login?success=false&message=Bad Request');
-
-        //     req.session.isAdmin = true;
-        //     return res.redirect('/admin');
-        //     // res.redirect('/admin/login?success=false&message=fail');
-        // }
-        // catch (err) {
-        //     console.log(err);
-        //     return res.status(500).redirect('/auth/admin/login?success=false&message=Internal Server');
-        // }
+            req.session.isAdmin = true;
+            return res.redirect('/admin');
+            // res.redirect('/admin/login?success=false&message=fail');
+        }
+        catch (err) {
+            console.log(err);
+            return res.status(500).redirect('/auth/admin/login?success=false&message=Internal Server');
+        }
     }
     /**[GET] /auth/admin/logout
      * Dang xuat
