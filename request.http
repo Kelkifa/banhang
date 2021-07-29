@@ -37,3 +37,22 @@ Content-type: application/json
 
 ### GET /cart/number
 GET http://localhost:3000/cart/number
+
+### POST /auth/admin/login
+POST http://localhost:3000/auth/admin/login
+Content-type: application/json
+
+{
+    "username":"huan2",
+    "password":"Kel2kifa123"
+}
+
+### POST /auth/admin/create
+POST http://localhost:3000/auth/admin/create
+Content-type: application/json
+
+{
+    "fullname":"Pham Long Huan",
+    "username":"huan2",
+    "password":"Kelkifa123"
+}

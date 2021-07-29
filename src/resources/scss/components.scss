@@ -1,0 +1,27 @@
+
+.my-form{
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: 3px;
+    background-color: white;
+    color: #3c4b56;
+    form{
+        width: 100%;
+    }
+    label{
+        font-weight: normal;
+    }
+    .my-form__item ~ .my-form__item{
+        margin-top: 10px;
+    }
+    .my-form__item{
+        width: 100%;
+        input{
+            width: 100%;
+        }
+    }
+    button{
+        margin-top: 20px;
+    }
+}

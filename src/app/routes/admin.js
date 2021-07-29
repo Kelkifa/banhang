@@ -21,6 +21,7 @@ router.get('/products/trash', AdminController.productTrash);
 router.get('/products/table', AdminController.productTabe);
 router.get('/products/:id/update', AdminController.productUpdate);
 router.get('/products/create', AdminController.productCreate);
+
 //index
 router.get('/databoard', AdminController.databoard);
 router.get('/', AdminController.index);

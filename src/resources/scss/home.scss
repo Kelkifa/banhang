@@ -78,8 +78,9 @@ $color_orange:#fa7d19;
         justify-content: center;
         background-color: rgba(39, 36, 36, 0.548);
         color: white;
-        width: 200px;
-        height: 110px;
+        padding: 0 20px;
+        width: 240px;
+        height: 120px;
         border-radius: 3px;
         i{
             font-size: 40px;
@@ -751,39 +752,6 @@ $header_cartIcon_size: 20px;
     display: block;
 }
 
-/** Login **/
-.login__container{
-    display: flex;
-    padding: 15px;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-    background-color: #fa7d19;
-    
-    .login__container__logo{
-        text-align: center;
-        width: 50%;
-        i{  
-            color:white;
-        }
-    }
-    .login__container__form{
-        background-color: white;
-        padding: 15px;
-        width: 50%;
-        border-radius: 0.3em;
-        input{
-            display: block;
-            width: 100%;
-            border: none;   
-            outline: none;
-            background-color: rgba(128, 128, 128, 0.315);
-        }
-        .form__item ~ .form__item{
-            margin-top: 10px;
-        }
-    }
-}
 
 @media screen and (max-width: 690px) {
     .header{

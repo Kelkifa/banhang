@@ -7,9 +7,10 @@ class AdminControll {
      * Trang admin
      * private
      */
-    index(req, res, next) {
+    index(req, res) {
         res.redirect('/admin/databoard');
     }
+
     /**[GET] /admin/databoard
      * trang admin show bieu do
      * private
@@ -160,6 +161,7 @@ class AdminControll {
     async orderTable(req, res) {
         try {
             const response = await orderModel.find().populate('productId');
+            console.log(response);
             return res.render('admin/orderTable', { layout: 'layouts/adminLayout', response, success: true });
         } catch (err) {
             return res.status(500).render('admin/orderTable', { layout: 'layouts/adminLayout', response: [], success: false });

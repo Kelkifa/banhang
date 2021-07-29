@@ -5,11 +5,9 @@ var mongoose_delete = require('mongoose-delete');
 
 const users = new Schema(
     {
-        name: { type: String },
-        email: { type: String, unique: true },
-        picture: { type: String },
-        userid: { type: String, unique: true },
-        phoneNumber: { type: String, default: "" },
+        fullname: { type: String, require },
+        username: { type: String, require, unique: true },
+        password: { type: String, require },
     },
     {
         timestamps: true

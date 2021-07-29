@@ -42,8 +42,12 @@ $(document).ready(function () {
         const selectedShape = $('.jsShowImageOrder[state=checked][jsName=shape]').attr('jsValue');
         const soLuong = $('#jsSoLuongInput').val();
 
+        //shape and color aren't checked
         if (!selectedColor || !selectedShape) {
-            alert('Vui long chon hinh dang va mau sac');
+            $('.jsDialog--fail').addClass('dialog--show');
+            setInterval(() => {
+                $('.jsDialog--fail').removeClass('dialog--show');
+            }, 1300);
             return;
         }
 
@@ -67,13 +71,14 @@ $(document).ready(function () {
                 setInterval(() => {
                     // $('.jsDialog--loader').removeClass('dialog--show');
                     $('.jsDialog--success').removeClass('dialog--show');
-                }, 1700);
+                }, 1300);
             }
             else {
-                /****************************************/
-                /** Them dialog Khong thanh cong o day **/
-                /****************************************/
+                $('.jsDialogAddCart--fail').addClass('dialog--show');
                 $('.jsDialog--loader').removeClass('dialog--show');
+                setInterval(() => {
+                    $('.jsDialogAddCart--fail').removeClass('dialog--show');
+                }, 1300);
             }
         } catch (err) {
             console.log(err);
@@ -158,9 +163,9 @@ $(document).ready(function () {
             return;
         }
         $('.jsNotificeDialog--fail').addClass('dialog--show');
-        // setInterval(function () {
-        //     $('.jsNotificeDialog--fail').removeClass('dialog--show');
-        // }, 1000)
+        setInterval(function () {
+            $('.jsNotificeDialog--fail').removeClass('dialog--show');
+        }, 1300);
 
     });
     //Click to delete cart btn
